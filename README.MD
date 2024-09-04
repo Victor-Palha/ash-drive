@@ -13,14 +13,15 @@ cd api
 npm install
 npm run dev
 ```
-3. Abra um novo terminal e acesse o Frontend
+3. Agora que a API está rodando, verifique o endereço que ela está rodando e acesse o arquivo `drive-front/src/lib/axios.ts` e altere o valor da variável `baseURL` para o endereço da API
+4. Abra um novo terminal e acesse o Frontend
 ```bash
 cd ash-drive
 cd drive-front
 npm install
 npm run dev
 ```
-4. Acesse o endereço `http://localhost:3000` em seu navegador
+5. Acesse o endereço `http://localhost:3000` em seu navegador
 
 ## Build
 O projeto não utiliza build, pois ele é executado em modo de desenvolvimento. Se você deseja fazer um build do projeto, você pode fazer isso com o comando `npm run build` na pasta `drive-front` e depois executar o comando `npm run preview`.
