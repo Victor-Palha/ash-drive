@@ -31,6 +31,17 @@ export function Dropdown({name, extension}: DropdownProps) {
             document.body.removeChild(link);
         } catch (error) {
             console.error('Error downloading file:', error);
+            alert("Error ao baixar o arquivo :(")
+        }
+    }
+
+    async function handleDeleteFile(name: string, extension: string) {
+        try {
+            await api.delete(`/files/${name}.${extension}`);
+            alert("Arquivo deletado com sucesso!")
+        } catch (error) {
+            console.error('Error deleting file:', error);
+            alert("Error ao deletar o arquivo :(")
         }
     }
 
@@ -50,7 +61,9 @@ export function Dropdown({name, extension}: DropdownProps) {
                 >
                 Download arquivo
                 </DropdownMenu.Item>
-                <DropdownMenu.Item className="group text-[15px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1">
+                <DropdownMenu.Item className="group text-[15px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
+                onClick={()=>handleDeleteFile(name, extension)}
+                >
                 Deletar arquivo
                 </DropdownMenu.Item>
 
