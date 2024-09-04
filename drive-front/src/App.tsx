@@ -4,7 +4,7 @@ import mimic from "./assets/mimic.jpeg"
 
 import { Items } from "./components/Items";
 import { New } from "./components/New";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { api } from "./lib/axios";
 
 export type FilesSaved = {
@@ -14,11 +14,17 @@ export type FilesSaved = {
   contentType: string
 }
 export function App() {
-
+  const [searchItem, setSearchItem] = useState<string>('')
   const [filesSaved, setFilesSaved] = useState<FilesSaved[]>([])
 
   async function handleGetFiles(){
     const response = await api.get("/files")
+    setFilesSaved(response.data.files)
+  }
+
+  async function handleSearchFiles(e: React.FormEvent){
+    e.preventDefault()
+    const response = await api.get(`/files/search?name=${searchItem}`)
     setFilesSaved(response.data.files)
   }
 
@@ -33,9 +39,16 @@ export function App() {
             <img src={icon} className="grayscale"/>
             <h1 className="text-2xl">Ash</h1>
         </div>
-        <form className="flex items-center">
-            <input type="text" className="w-[650px] h-[60px] rounded-l-sm focus:border-none text-2xl p-2"/>
-            <button type="submit" className="bg-[#C2E7FF] h-[60px] w-[105px] rounded-r-sm flex items-center pl-8 cursor-pointer">
+        <form className="flex items-center" onSubmit={(e)=>handleSearchFiles(e)}>
+            <input 
+              type="text" 
+              className="w-[650px] h-[60px] rounded-l-sm focus:border-none text-2xl p-2"
+              onChange={(e) => setSearchItem(e.target.value)}  
+            />
+            <button 
+              type="submit" 
+              className="bg-[#C2E7FF] h-[60px] w-[105px] rounded-r-sm flex items-center pl-8 cursor-pointer"
+            >
                 <MagnifyingGlass size={30}/>
             </button>
         </form>
