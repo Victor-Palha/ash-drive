@@ -1,7 +1,10 @@
 import { Plus } from "@phosphor-icons/react";
 import { api } from "../../lib/axios";
+import { useState } from "react";
 
 export function New(){
+
+    const [progressBar, setProgressBar] = useState(0);
 
     async function handleFileChange(event: React.ChangeEvent<HTMLInputElement>){
         if (event.target.files) {
@@ -15,6 +18,19 @@ export function New(){
                 const response = await api.post('/upload', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
+                    },
+                    onUploadProgress: (progressEvent) => {
+                        if(progressEvent.total){
+                            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                            setProgressBar(progress);
+                            console.log(`Progress: ${progress}%`);
+                            
+                            if(progress === 100){
+                                setTimeout(() => {
+                                    setProgressBar(0);
+                                }, 2000);
+                            }
+                        }
                     }
                 });
                 alert("Arquivo salvo com sucesso!")
@@ -38,6 +54,11 @@ export function New(){
                 className="hidden"
                 onChange={handleFileChange}
             />
+            <div className="mt-5">
+                <div className="bg-gray-200 w-full h-2 rounded-lg">
+                    <div className="bg-blue-500 h-2 rounded-lg" style={{ width: `${progressBar}%` }}></div>
+                </div>
+            </div>
         </nav>
     )
 } 
