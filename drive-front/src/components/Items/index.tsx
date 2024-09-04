@@ -1,4 +1,4 @@
-import { Panorama, FilePdf, VideoCamera, DotsThreeOutlineVertical } from "@phosphor-icons/react";
+import { Panorama, FilePdf, VideoCamera, DotsThreeOutlineVertical, FileDoc } from "@phosphor-icons/react";
 import { FilesSaved } from "../../App";
 import { Dropdown } from "../Dropdown";
 
@@ -13,8 +13,11 @@ export function Items(data: FilesSaved) {
         case 'video':
             icon = <VideoCamera size={30} weight="fill" color={iconColor} />;
             break;
-        case 'text':
+        case 'pdf':
             icon = <FilePdf size={30} weight="fill" color={iconColor} />;
+            break;
+        case "document":
+            icon = <FileDoc size={30} weight="fill" color={iconColor} />;
             break;
         default:
             icon = <Panorama size={30} weight="fill" color={iconColor} />;

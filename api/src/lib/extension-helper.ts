@@ -15,14 +15,19 @@ export function extensionHelper(extension: string, baseUrl: string, file: string
             case 'ogg':
                 return {
                     contentType: 'image',
-                    previewUrl
+                    previewUrl: undefined
+                };
+            case "pdf":
+                return {
+                    contentType: 'pdf',
+                    previewUrl: undefined
                 };
             case 'txt':
             case 'md':
             case 'json':
-            case "pdf":
+            case "docx":
                 return {
-                    contentType: 'image',
+                    contentType: 'document',
                     previewUrl: undefined
                 };
             default:
